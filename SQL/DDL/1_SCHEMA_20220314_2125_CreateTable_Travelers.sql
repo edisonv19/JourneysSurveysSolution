@@ -9,7 +9,8 @@ BEGIN
 		[SocioEconomicLevelId]	INT NULL,
 		[SexId]			INT NULL,
 		[EducationLevelId]	INT NULL,
-		[OccupationId]		INT NULL
+		[OccupationId]		INT NULL,
+		[Identification] 	VARCHAR(100) NOT NULL
 	);
 
 	ALTER TABLE Travelers
@@ -35,4 +36,7 @@ BEGIN
 	ALTER TABLE Travelers
 	ADD CONSTRAINT FK_Travelers_Codes_OccupationId
 	FOREIGN KEY (OccupationId) REFERENCES [Codes](Id);
+	
+	CREATE NONCLUSTERED INDEX IX_Travelers_Identification
+	ON [dbo].[Travelers](Identification);
 END;

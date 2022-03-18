@@ -33,4 +33,7 @@ BEGIN
 	ALTER TABLE Locations
 	ADD CONSTRAINT FK_Locations_Codes_ResidentialZoneTypeId
 	FOREIGN KEY (ResidentialZoneTypeId) REFERENCES [Codes](Id);
+	
+	CREATE NONCLUSTERED INDEX IX_Locations_Lat_lgn
+	ON [dbo].[Locations](Latitude, Longitude);
 END;
