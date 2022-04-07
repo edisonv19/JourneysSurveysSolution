@@ -4,4 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Caches\" />
+    <Folder Include="Calculatores\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>
