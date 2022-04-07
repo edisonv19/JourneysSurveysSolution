@@ -11,8 +11,8 @@ BEGIN
 		[DestinationPlaceTypeId]	INT NULL,
 		
 		[ReasonTripId]		INT NULL,
-		[HoraInicio]	TIME NULL,
-		[HoraFin]		TIME NULL,
+		[StartTime]		TIME NULL,
+		[EndTime]		TIME NULL,
 		
 		[TransportId]	INT NULL,
 		[Observations]	NVARCHAR(200) NULL,
