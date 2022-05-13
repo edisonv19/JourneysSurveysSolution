@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Infrastructure.DbContext.Interfaces
+﻿namespace Infrastructure.DbContext.Interfaces
 {
     public interface IDbContext
     {
+        public T GetOne<T>(string spName, IEnumerable<object> parameters);
+
+        public IEnumerable<T> GetMany<T>(string spName, IEnumerable<object> parameters);
+
+        public int Exec(string spName, IEnumerable<object> parameters);
     }
 }
