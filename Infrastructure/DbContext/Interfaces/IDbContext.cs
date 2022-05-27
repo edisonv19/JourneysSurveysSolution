@@ -2,10 +2,8 @@
 {
     public interface IDbContext
     {
-        public T GetOne<T>(string spName, IEnumerable<object> parameters);
+        public IEnumerable<T> GetData<T>(string spName, IEnumerable<object> parameters) where T : new();
 
-        public IEnumerable<T> GetMany<T>(string spName, IEnumerable<object> parameters);
-
-        public int Exec(string spName, IEnumerable<object> parameters);
+        public int ExecTransaction(string spName, IEnumerable<object> parameters);
     }
 }
