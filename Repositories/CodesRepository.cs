@@ -1,12 +1,40 @@
-﻿using System;
+﻿using Domain;
+using Domain.RepoInterfaces;
+using Infrastructure.DbContext.Interfaces;
+using Infrastructure.DbContext.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class CodesRepository
+    public class CodesRepository : ICodesRepository
     {
+        private readonly IDbContext _dbContext;
+
+        public CodesRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public Code Get(string key, string group)
+        {
+            var parameters = new List<Parameter>()
+            {
+                new Parameter
+                {
+                    Name = "key",
+                    Value = key,
+                    Type = DbTypes.Varchar
+                },
+                new Parameter
+                {
+                    Name = "group",
+                    Value = group,
+                    Type = DbTypes.Varchar
+                }
+            };
+
+            return _dbContext.GetData<Code>("", parameters).FirstOrDefault();
+        }
     }
 }

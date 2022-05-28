@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Infrastructure.DbContext.Utils;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Infrastructure.DbContext
 {
@@ -20,6 +22,18 @@ namespace Infrastructure.DbContext
             }
 
             return list;
+        }
+
+        internal static IEnumerable<SqlParameter> CreateParameters(IEnumerable<Parameter> parameters)
+        {
+            var sqlParameters = new List<SqlParameter>();
+
+            foreach (var item in parameters)
+            {
+                
+            }
+
+            return sqlParameters;
         }
 
         private static void SetObj<T>(T obj, DataRow row)

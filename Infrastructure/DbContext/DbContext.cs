@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DbContext.Interfaces;
+using Infrastructure.DbContext.Utils;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -13,20 +14,22 @@ namespace Infrastructure.DbContext
             _connectionString = connectionString;
         }
 
-        public IEnumerable<T> GetData<T>(string spName, IEnumerable<object> parameters) where T : new()
+        public IEnumerable<T> GetData<T>(string spName, IEnumerable<Parameter> parameters) where T : new()
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             try
             {
+                var sqlParameters = DbSqlServerUtils.CreateParameters(parameters);
+
                 using var command = new SqlCommand();
                 command.Connection = connection;
 
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = spName;
 
-                command.Parameters.AddRange((Array)parameters);
+                command.Parameters.AddRange((Array)sqlParameters);
 
                 var reader = command.ExecuteReader();
 
@@ -45,7 +48,7 @@ namespace Infrastructure.DbContext
             }
         }
 
-        public int ExecTransaction(string spName, IEnumerable<object> parameters)
+        public int ExecTransaction(string spName, IEnumerable<Parameter> parameters)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -54,6 +57,8 @@ namespace Infrastructure.DbContext
 
             try
             {
+                var sqlParameters = DbSqlServerUtils.CreateParameters(parameters);
+
                 using var command = new SqlCommand();
                 command.Connection = connection;
                 command.Transaction = transaction;
@@ -61,7 +66,7 @@ namespace Infrastructure.DbContext
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = spName;
 
-                command.Parameters.AddRange((Array)parameters);
+                command.Parameters.AddRange((Array)sqlParameters);
 
                 id = (int)command.ExecuteScalar();
 
