@@ -30,7 +30,33 @@ namespace Infrastructure.DbContext
 
             foreach (var item in parameters)
             {
-                
+                SqlParameter sqlParameter;
+                switch (item.Type)
+                {
+                    case DbTypes.Integer:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.Int, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (int)item.Value);
+                        break;
+                    case DbTypes.Varchar:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.VarChar, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (string)item.Value);
+                        break;
+                    case DbTypes.DateTime:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.DateTime, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (DateTime)item.Value);
+                        break;
+                    case DbTypes.Time:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.Time, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (TimeSpan)item.Value);
+                        break;
+                    case DbTypes.Decimal:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.Decimal, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (decimal)item.Value);
+                        break;
+                    case DbTypes.FLOAT:
+                        sqlParameter = new SqlParameter($"@{item.Name}", SqlDbType.Float, item.Size, ParameterDirection.Input, item.IsNullable, 0, 0, null, DataRowVersion.Original, (float)item.Value);
+                        break;
+                    default:
+                        sqlParameter = new SqlParameter();
+                        break;
+                }
+
+                sqlParameters.Add(sqlParameter);
             }
 
             return sqlParameters;
