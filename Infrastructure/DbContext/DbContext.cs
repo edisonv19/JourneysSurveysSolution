@@ -29,7 +29,7 @@ namespace Infrastructure.DbContext
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = spName;
 
-                command.Parameters.AddRange((Array)sqlParameters);
+                command.Parameters.AddRange(sqlParameters.Cast<SqlParameter>().ToArray());
 
                 var reader = command.ExecuteReader();
 

@@ -7,6 +7,6 @@
         DateTime = 2,
         Time = 3,
         Decimal = 4,
-        FLOAT = 5
+        Float = 5
     }
 }

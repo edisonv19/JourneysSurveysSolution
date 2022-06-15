@@ -8,7 +8,10 @@
     <Folder Include="Caches\" />
     <Folder Include="Calculatores\" />
     <Folder Include="Factories\" />
-    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
