@@ -22,7 +22,8 @@ namespace Infrastructure.DbContext
             try
             {
                 var sqlParameters = DbSqlServerUtils.CreateParameters(parameters);
-
+                var ds = new DataSet();
+                using var adapter = new SqlDataAdapter();
                 using var command = new SqlCommand();
                 command.Connection = connection;
 
@@ -31,9 +32,10 @@ namespace Infrastructure.DbContext
 
                 command.Parameters.AddRange(sqlParameters.Cast<SqlParameter>().ToArray());
 
-                var reader = command.ExecuteReader();
+                adapter.SelectCommand = command;
+                adapter.Fill(ds);
 
-                var rows = reader.GetSchemaTable().Rows;
+                var rows = ds.Tables[0].Rows;
 
                 return DbSqlServerUtils.GetDataList<T>(rows);
 

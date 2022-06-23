@@ -39,7 +39,9 @@ namespace Repositories
                 }
             };
 
-            return _dbContext.GetData<Code>(Constants.Db.Sp.Codes.GET, parameters).FirstOrDefault();
+            var result = _dbContext.GetData<Code>(Constants.Db.Sp.Codes.GET, parameters);
+
+            return result.Any() ? result.FirstOrDefault() : null;
         }
     }
 }
