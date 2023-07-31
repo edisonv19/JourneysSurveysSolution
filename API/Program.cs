@@ -21,7 +21,8 @@ builder.Services.AddTransient<ICodesService, CodesService>();
 builder.Services.AddTransient<ICodesRepository, CodesRepository>();
 
 // Infra
-builder.Services.AddTransient<IDbContext>(x => new DbContext("Data Source=DESKTOP-KJ1KTE2\\SQLEXPRESS; Initial Catalog=journey_survey; Persist Security Info=False; User ID=user; Password=user"));
+string connectionString = builder.Configuration.GetConnectionString("journey_survey");
+builder.Services.AddTransient<IDbContext>(x => new DbContext(connectionString));
 
 var app = builder.Build();
 
